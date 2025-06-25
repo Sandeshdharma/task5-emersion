@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vehicle API</title>
+</head>
+<body>
+  <h1>Add Vehicle</h1>
+  <form action="/vehicles" method="POST">
+    <input type="text" name="vehicleName" placeholder="Model Name" required><br>
+    <input type="number" name="price" placeholder="Price" required><br>
+    <input type="url" name="image" placeholder="Image URL"><br>
+    <textarea name="desc" placeholder="Description"></textarea><br>
+    <input type="text" name="brand" placeholder="Brand" required><br>
+    <button type="submit">Add Vehicle</button>
+  </form>
+
+  <h2>Vehicles</h2>
+  <ul>
+    <% vehicles.forEach(vehicle => { %>
+      <li>
+        <strong><%= vehicle.vehicleName %></strong> (<%= vehicle.brand %>)
+        - $<%= vehicle.price %>
+        <% if (vehicle.image) { %>
+          <img src="<%= vehicle.image %>" height="50">
+        <% } %>
+        <p><%= vehicle.desc %></p>
+        <form action="/vehicles/<%= vehicle.id %>?_method=DELETE" method="POST" style="display:inline;">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
